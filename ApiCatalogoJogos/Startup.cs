@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using ApiCatalogoJogos.Repositories;
 using ApiCatalogoJogos.Services;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +32,10 @@ namespace ApiCatalogoJogos
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiCatalogoJogos", Version = "v1" });
+
+                var basePath = AppDomain.CurrentDomain.BaseDirectory;
+                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
+                c.IncludeXmlComments(Path.Combine(basePath, fileName));
             });
         }
 

@@ -14,9 +14,9 @@ namespace ApiCatalogoJogos.Services
     {
         private readonly IJogoRepository _jogoRepository;
 
-        public JogoService(IJogoRepository jogoService)
+        public JogoService(IJogoRepository jogoRepository)
         {
-            _jogoRepository = jogoService;
+            _jogoRepository = jogoRepository;
         }
 
         public async Task<List<JogoViewModel>> Obter(int pagina, int quantidade)
@@ -103,9 +103,9 @@ namespace ApiCatalogoJogos.Services
 
         public async Task Remover(Guid id)
         {
-            var jogo = await _jogoRepository.Obter(id);
+            var entidadeJogo = await _jogoRepository.Obter(id);
 
-            if (jogo == null)
+            if (entidadeJogo == null)
                 throw new JogoNaoCadastradoException();
 
             await _jogoRepository.Remover(id);
